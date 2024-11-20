@@ -1,27 +1,16 @@
-# Hello World Sample
+# Git Smooth Checkout
 
-This is a Hello World example that shows you how to use VS Code API.
+A VS Code extension that makes Git checkout operations smoother by allowing direct checkout in the current repository without repository selection, even in projects with submodules.
 
-Guide for this sample: https://code.visualstudio.com/api/get-started/your-first-extension.
+## Features
 
-## Demo
+- Checkout branches directly in the currently selected repository
+- No extra repository selection steps needed
+- Works seamlessly with submodules
 
-![demo](demo.gif)
+## Usage
 
-## VS Code API
-
-### `vscode` module
-
-- [`commands.registerCommand`](https://code.visualstudio.com/api/references/vscode-api#commands.registerCommand)
-- [`window.showInformationMessage`](https://code.visualstudio.com/api/references/vscode-api#window.showInformationMessage)
-
-### Contribution Points
-
-- [`contributes.commands`](https://code.visualstudio.com/api/references/contribution-points#contributes.commands)
-
-## Running the Sample
-
-- Run `npm install` in terminal to install dependencies
-- Run the `Run Extension` target in the Debug View. This will:
-	- Start a task `npm: watch` to compile the code
-	- Run the extension in a new VS Code window
+1. Open a Git repository in VS Code
+2. Open Command Palette (`Ctrl+Shift+P` / `Cmd+Shift+P`)
+3. Type "Git: Checkout to in the current repository"
+4. Select a branch to checkout
