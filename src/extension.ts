@@ -44,6 +44,18 @@ export function activate(context: vscode.ExtensionContext) {
 }
 
 /**
+ * Get the active workspace folder based on the active text editor
+ */
+function getActiveWorkspaceFolder(): vscode.WorkspaceFolder | undefined {
+  const editor = vscode.window.activeTextEditor;
+  if (!editor) {
+    return undefined;
+  }
+  const uri = editor.document.uri;
+  return vscode.workspace.getWorkspaceFolder(uri);
+}
+
+/**
  * Get the target repository with the following priority:
  * 1. Repository at workspace root folder (main repository)
  * 2. Currently selected repository
@@ -57,7 +69,17 @@ function getTargetRepository(repositories: Repository[]): Repository | undefined
   // Priority 1: Get workspace root folder repository
   const workspaceFolders = vscode.workspace.workspaceFolders;
   if (workspaceFolders && workspaceFolders.length > 0) {
-    const rootFolderUri = workspaceFolders[0].uri;
+    const rootFolderUri = (() => {
+      if (workspaceFolders.length === 1) {
+        return workspaceFolders[0].uri;
+      }
+      const activeFolder = getActiveWorkspaceFolder();
+      if (activeFolder) {
+        return activeFolder.uri;
+      }
+      return workspaceFolders[0].uri;
+    })();
+
     const rootRepository = repositories.find(
       (repo) => repo.rootUri.toString() === rootFolderUri.toString()
     );
